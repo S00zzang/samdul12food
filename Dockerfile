@@ -4,6 +4,6 @@ WORKDIR /code
 
 COPY src/samdul12food/main.py /code/
 
-RUN pip install --no-cache-dir --upgrade git+https://github.com/S00zzang/samdul12food
+RUN pip install --no-cache-dir --upgrade git+https://github.com/S00zzang/samdul12food@0.1.0
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
