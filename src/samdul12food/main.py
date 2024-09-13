@@ -20,7 +20,10 @@ app.add_middleware(
 )
 
 #CSV 파일 경로
-CSV_FILE_PATH = 'home/s00zzang/code/samdul12food/data/food.csv'
+file_path = "/code/data/food.csv"
+
+if not os.path.exists(file_path):
+	os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
 @app.get("/")
 def read_root():
@@ -32,19 +35,14 @@ def food(name: str):
 	kst_time = datetime.now() + timedelta(hours=9)
 	#시간을 구함
 	current_time = kst_time.strftime('%Y-%m-%d %H:%M:%S')
+	#음식 이름과 시간을 csv 파일로 저장
+	fields = ['food', 'time']
+	data = {"food": name, "time": current_time}
 
-	#파일 없으면 생성
-	os.makedirs(os.path.dirname(CSV_FILE_PATH), exist_ok=True)
-
-	#음식 이름과 시간을 csv 파일로 저장 -> /code/samdul12food/data/food.csv
-	file_exists = os.path.isfile(CSV_FILE_PATH)
-
-	with open(CSV_FILE_PATH, mode='a', newline='', encoding='utf-8') as file:
-		writer = csv.writer(file)
-		if not file_exists:
-			writer.writerow(['Timestamp', 'Food Name'])
-		writer.writerow([current_time, name])
+	with open(file_path, 'a', newline='') as f:
+		writer = csv.DictWriter(f, fieldsnames=fields)
+		writer.writerow(data)
 	
 	#DB 저장
 	print("=======================" + name)
-	return{"food": name, "time": current_time}
+	return data
