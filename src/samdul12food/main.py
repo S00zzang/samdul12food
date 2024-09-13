@@ -18,7 +18,7 @@ app.add_middleware(
 )
 
 #CSV 파일 경로
-CSV_FILE_PATH = '~/code/samdul12food/data/food.csv'
+CSV_FILE_PATH = 'home/s00zzang/code/samdul12food/data/food.csv'
 
 @app.get("/")
 def read_root():
