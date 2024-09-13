@@ -1,8 +1,16 @@
 from typing import Union
 from fastapi import FastAPI
-import pickle
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8012/"],  # 허용할 출처 (클라이언트 URL)
+    allow_credentials=True,
+    allow_methods=[""],
+    allow_headers=[""],
+)
 
 @app.get("/")
 def read_root():
