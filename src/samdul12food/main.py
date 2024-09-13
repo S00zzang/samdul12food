@@ -9,9 +9,11 @@ import os
 
 app = FastAPI()
 
+origins = [ "https://samdul12food.web.app/" ] 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8012/","https://samdul12food.web.app/"],  # 허용할 출처 (클라이언트 URL)
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=[""],
     allow_headers=[""],
