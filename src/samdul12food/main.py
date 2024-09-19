@@ -51,7 +51,7 @@ def food(name: str):
 		user = 'food',
 		passwd = '1234',
 		db = 'fooddb',
-		charset = 'utf-8'
+		charset = 'utf8'
 	)
 	cursor = db.cursor(pymysql.cursors.DictCursor)
 
