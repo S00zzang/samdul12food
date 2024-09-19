@@ -55,7 +55,7 @@ def food(name: str):
 	)
 	cursor = db.cursor(pymysql.cursors.DictCursor)
 
-	sql = 'INSERT INTO food history(username, foodname, dt) VALUES(%s, %s, %s)'
+	sql = 'INSERT INTO foodhistory(username, foodname, dt) VALUES(%s, %s, %s)'
 	cursor.execute(sql, ('n12', name, current_time))
 	db.commit()
 
