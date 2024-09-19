@@ -42,8 +42,7 @@ def food(name: str):
 	data = {"food": name, "time": current_time}
 
 	with open(file_path, 'a', newline='') as f:
-		writer = csv.DictWriter(f, fieldsnames=fields)
-		writer.writerow(data)
+		csv.DictWriter(f, fieldnames=fields).writerow(data)
 	
 	#DB 저장
 	db = pymysql.connect(
@@ -57,7 +56,7 @@ def food(name: str):
 	cursor = db.cursor(pymysql.cursors.DictCursor)
 
 	sql = 'INSERT INTO food history(username, foodname, dt) VALUES(%s, %s, %s)'
-	cursor.execute(sql, ('n12', name, t))
+	cursor.execute(sql, ('n12', name, current_time))
 	db.commit()
 
 	return data
