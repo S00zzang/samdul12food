@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 import csv
 import os
 
+import pymysql
+
 
 app = FastAPI()
 
@@ -44,5 +46,18 @@ def food(name: str):
 		writer.writerow(data)
 	
 	#DB 저장
-	print("=======================" + name)
+	db = pymysql.connect(
+		host = '172.17.0.1',
+		port = 13306,
+		user = 'food',
+		passwd = '1234',
+		db = 'fooddb',
+		charset = 'utf-8'
+	)
+	cursor = db.cursor(pymysql.cursors.DictCursor)
+
+	sql = 'INSERT INTO food history(username, foodname, dt) VALUES(%s, %s, %s)'
+	cursor.execute(sql, ('n12', name, t))
+	db.commit()
+
 	return data
